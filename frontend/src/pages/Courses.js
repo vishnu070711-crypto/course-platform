@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { coursesAPI } from '../services/api';
 import {
@@ -25,11 +25,7 @@ const Courses = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
 
-  useEffect(() => {
-    fetchCourses();
-  }, [search, category]);
-
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       setLoading(true);
       const params = {};
@@ -43,7 +39,11 @@ const Courses = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [search, category]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>

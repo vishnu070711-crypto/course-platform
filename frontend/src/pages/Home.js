@@ -7,7 +7,6 @@ import {
   Typography,
   Button,
   Grid,
-  Paper,
   Card,
   CardContent
 } from '@mui/material';

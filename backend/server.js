@@ -44,8 +44,8 @@ const startServer = (port) => {
 
   server.on('error', (error) => {
     if (error.code === 'EADDRINUSE') {
-      console.warn(`Port ${port} is busy. Trying ${port + 1}...`);
-      startServer(port + 1);
+      console.error(`Port ${port} is already in use. Please free that port or set PORT to a different value.`);
+      process.exit(1);
     } else {
       console.error(error);
       process.exit(1);

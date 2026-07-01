@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { coursesAPI, BACKEND_URL } from '../services/api';
 import {
@@ -19,11 +19,7 @@ const AssignmentSubmissions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchSubmissions();
-  }, [assignmentId]);
-
-  const fetchSubmissions = async () => {
+  const fetchSubmissions = useCallback(async () => {
     setLoading(true);
     try {
       const res = await coursesAPI.getAssignmentSubmissions(assignmentId);
@@ -33,7 +29,11 @@ const AssignmentSubmissions = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [assignmentId]);
+
+  useEffect(() => {
+    fetchSubmissions();
+  }, [fetchSubmissions]);
 
   const handleGrade = async (submissionId, grade, feedback, idx) => {
     try {
