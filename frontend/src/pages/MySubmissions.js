@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { coursesAPI } from '../services/api';
+import { coursesAPI, BACKEND_URL } from '../services/api';
 import {
   Container,
   Typography,
@@ -15,8 +15,6 @@ const MySubmissions = () => {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const BACKEND_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
 
   useEffect(() => {
     const fetchSubmissions = async () => {

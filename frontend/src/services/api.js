@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || '/api';
+const API_URL = process.env.REACT_APP_API_URL || '/_/backend/api';
+export const BACKEND_URL = API_URL.replace(/\/api$/, '');
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -48,8 +49,7 @@ export const coursesAPI = {
   createAssignment: (courseId, data) => apiClient.post(`/assignments/courses/${courseId}/assignments`, data, formDataHeaders(data)),
   submitAssignment: (assignmentId, data) => apiClient.post(`/assignments/${assignmentId}/submissions`, data, formDataHeaders(data)),
   getCourseAssignments: (courseId) => apiClient.get(`/assignments/courses/${courseId}/assignments`),
-  getMySubmissions: () => apiClient.get('/assignments/my-submissions')
-  ,
+  getMySubmissions: () => apiClient.get('/assignments/my-submissions'),
   getAssignmentSubmissions: (assignmentId) => apiClient.get(`/assignments/${assignmentId}/submissions`),
   gradeSubmission: (submissionId, data) => apiClient.patch(`/assignments/submissions/${submissionId}`, data)
 };

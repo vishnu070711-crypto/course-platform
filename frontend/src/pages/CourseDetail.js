@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { coursesAPI } from '../services/api';
+import { coursesAPI, BACKEND_URL } from '../services/api';
 import {
   Container,
   Box,
@@ -28,8 +28,6 @@ const CourseDetail = () => {
   const [error, setError] = useState('');
   const [enrolling, setEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
-
-  const BACKEND_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/api$/, '');
 
   const fetchCourse = useCallback(async () => {
     try {
